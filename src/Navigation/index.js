@@ -1,24 +1,14 @@
-import { StyleSheet, Text, View } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
-import SplachScreen from '../screens/Splach'; 
-import Slider from '../screens/Onboarding/Slider';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Login from '../screens/Login';
-import SignUp from '../screens/SignUp'
-import ForgetPassword from '../screens/ForgetPassword';
-export default function Navigation() {
-  const Stack = createNativeStackNavigator();
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import { AuthStack } from './AuthStack';
+import {HomeTabs} from './HomeTabs';
+
+export function AppContainer(props) {
+  const {isAuthenticated, setToken} = props;
+
   return (
     <NavigationContainer>
-        <Stack.Navigator screenOptions={{
-            headerShown:false
-        }}>
-  <Stack.Screen name='Splach' component={SplachScreen}/>
-  <Stack.Screen name='Slider' component={Slider} />
-  <Stack.Screen name='Login' component={Login}/>
-  <Stack.Screen name='SignUp' component={SignUp}/>
-  <Stack.Screen name='ForgetPassword' component={ForgetPassword}/>
-        </Stack.Navigator>
+      {isAuthenticated ?  <HomeTabs />:<AuthStack />}
     </NavigationContainer>
-  )
+  );
 }

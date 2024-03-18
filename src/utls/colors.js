@@ -6,5 +6,6 @@ export const colors = {
     splach:"#c7916d",
     white:"#f9f4f0",
 textsin:"#A1B174",
-bacImg:"#f8ecde"
+bacImg:"#f8ecde",
+error:"#f00"
 };
