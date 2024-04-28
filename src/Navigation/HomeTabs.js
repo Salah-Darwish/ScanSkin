@@ -1,54 +1,123 @@
-import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {Text} from 'react-native';
-import { IonIcon } from '../component/IonIcon';
-//import {TINT_COLOR} from '../utils/colors';
-import { colors } from '../utls/colors';
-import { HomeStack } from './HomeStack';
-//import {SearchStack} from './SearchStack';
-import { AccountStack } from './AccountStack';
-import { TabCartIcon } from '../component/TabCartIcon';
+import React, { useState } from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text, View, Dimensions, Image } from "react-native";
+import { HomeStack } from "./HomeStack";
+import { AccountStack } from "./AccountStack";
+import HomeScreen from "../screens/Home";
+import { getPathDown } from "./curve";
+import { Svg, Path } from "react-native-svg";
+import { scale } from "react-native-size-scaling";
+import { colors } from "../utls/colors";
 
-const Tabs = createBottomTabNavigator();
-
-export function HomeTabs(props) {
+const Tab = createBottomTabNavigator();
+export const HomeTabs = () => {
+  const [maxWidth, setMaxWidth] = useState(Dimensions.get("window").width);
+  const returnpathDown = getPathDown(maxWidth, 60, 50);
   return (
-    <Tabs.Navigator
-      screenOptions={({route}) => {
-        const iconName = {
-          HomeStack: 'home',
-          SearchStack: 'search',
-          AccountStack: 'person',
-        };
-
-        const label = {
-          HomeStack: 'Shop',
-          CartStack: 'Cart',
-          SearchStack: 'Search',
-          AccountStack: 'Account',
-        };
-
-        return {
-          tabBarIcon: ({focused}) =>
-            route.name === 'CartStack' ? (
-              <TabCartIcon focused={focused} />
-            ) : (
-              <IonIcon
-                name={iconName[route.name]}
-                style={{color: focused ? colors.Actdot: 'black', fontSize: 24}}
-              />
-            ),
-          tabBarLabel: ({focused}) => (
-            <Text style={{color: focused ? colors.Actdot : 'black', fontSize: 18}}>
-              {label[route.name]}
-            </Text>
+    <Tab.Navigator
+    
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: "transparent",
+          borderTopWidth: 0,
+          position: "absolute",
+          elevation: 0,
+        
+        },
+      }}
+    >
+      <Tab.Screen
+        name="HomeStack"
+        component={HomeStack}
+        options={{
+          headerShown: false,
+          tabBarItemStyle: {
+            margin: 0,
+           // backgroundColor: "white",
+          },
+          tabBarIcon: () => (
+            <Image
+              style={{
+                width: 36,
+                height: 36,
+              }}
+              source={{
+                uri: "https://img.icons8.com/sf-regular-filled/48/null/home-page.png",
+              }}
+            />
           ),
-        };
-      }}>
-      <Tabs.Screen name="HomeStack" component={HomeStack} />
-      {/* <Tabs.Screen name="CartStack" component={CartStack} /> */}
-      {/* <Tabs.Screen name="SearchStack" component={SearchStack} /> */}
-      <Tabs.Screen name="AccountStack" component={AccountStack} />
-    </Tabs.Navigator>
+          tabBarLabel: () => (
+            <Text className="text-black text-xs">Home</Text>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="HomeScreen"
+        component={HomeScreen}
+        options={{
+          headerShown: false,
+          unmountOnBlur: false,
+          tabBarItemStyle: {
+            margin: 0,
+            zIndex: -50,
+          },
+          tabBarIcon: () => (
+            <View
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                height: 56,
+                width: 56,
+         //       backgroundColor: "white",
+                borderRadius: 35,
+              }}
+            >
+              <Image
+                style={{
+                  width: 36,
+                  height: 36,
+                }}
+                source={{
+                  uri: "https://img.icons8.com/sf-regular-filled/48/null/home-page.png",
+                }}
+              />
+            </View>
+          ),
+          tabBarLabel: () => (
+            <View>
+              <Svg width={maxWidth} height={scale(60)}>
+                <Path fill={"white"} {...{ d: returnpathDown }} />
+              </Svg>
+            </View>
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AccountStack"
+        component={AccountStack}
+        options={{
+          headerShown: false,
+          tabBarItemStyle: {
+            margin: 0,
+         //   backgroundColor: "white",
+          },
+          tabBarIcon: () => (
+            <Image
+              style={{
+                width: 36,
+                height: 36,
+              }}
+              source={{
+                uri: "https://img.icons8.com/small/64/null/gender-neutral-user.png",
+              }}
+            />
+          ),
+          tabBarLabel: () => (
+            <Text className="text-black text-xs">Profile</Text>
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
-}
+};

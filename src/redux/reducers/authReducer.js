@@ -9,6 +9,16 @@ SignUpFailure:null,
   isLogin:false,
 LoginSuccess:null, 
 LoginFailure:null,
+Rules:false, 
+RulesSuccess:null, 
+RulesFailure:null, 
+isConfirmCode:false, 
+ConfirmSuccess:null, 
+ConfirmFailure:null, 
+isRulesDoctor:false, 
+RulesDoctorSuccess:null, 
+RulesDoctorFailure:null, 
+
 };
 function authReducer(state=initialState,action){
 switch(action.type){
@@ -58,7 +68,61 @@ LoginSuccess:{}
                 ...state,
                 isLogin:false, 
                 LoginFailure:{}
-            }
+            };
+            case actionTypes.RULES_START:
+    return{
+...state, 
+Rules:true
+
+    };
+    case actionTypes.RULES_SUCCESS:
+        return{
+...state,
+Rules:false,
+RulesSuccess:{}
+        };
+case actionTypes.RULES_FAILURE:
+return{
+ ...state,
+ Rules:false, 
+RulesFailure:{}
+            }; 
+              case actionTypes.CONFIRM_START:
+    return{
+...state, 
+isConfirmCode:true
+
+    };
+    case actionTypes.CONFIRM_SUCCESS:
+        return{
+...state,
+isConfirmCode:false,
+ConfirmSuccess:{}
+        };
+case actionTypes.CONFIRM_FAILURE:
+return{
+ ...state,
+ isConfirmCode:false, 
+ConfirmFailure:{}
+            };
+                case actionTypes.RULESDOCTOR_START:
+    return{
+...state, 
+isRulesDoctor:true
+
+    };
+    case actionTypes.RULESDOCTOR_SUCCESS:
+        return{
+...state,
+isRulesDoctor:false,
+RulesDoctorSuccess:{}
+        };
+case actionTypes.RULESDOCTOR_FAILURE:
+return{
+ ...state,
+ isRulesDoctor:false, 
+RulesDoctorFailure:{}
+            };
 default:
     return state;
     

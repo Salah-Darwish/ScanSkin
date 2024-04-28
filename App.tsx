@@ -5,6 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Token_Key,User_Key } from './src/utls/constant';
 import axios from 'axios';
 import { setToken ,setUser} from './src/redux/actions';
+import RulesDoctor from './src/screens/RulesDoctor';
 function App (props) {
   const dispatch=useDispatch(); 
 const token=useSelector(state=> state.auth.token); 
@@ -14,8 +15,10 @@ dispatch(setToken(val));
 axios.defaults.headers.Authorization='Bearer '+val;
 
 }); 
-  },[]);
-  return( token !== '' && <AppContainer isAuthenticated={!!token} />
+  },[token]);
+  return(
+     token !== '' && <AppContainer isAuthenticated={!!token} />
+    // <RulesDoctor/>
   );
 };
 

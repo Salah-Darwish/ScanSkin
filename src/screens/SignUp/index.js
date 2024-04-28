@@ -22,7 +22,7 @@ const [displayName,changeDisplayNmae]=useInput({initialInput:'',rules:[{Key:'Nam
  const failure=useSelector(state=>state.auth.SignUpFailure)
 const dispatch=useDispatch(); 
 useUpadateEffect(()=>{
-navigation.navigate('Login');
+navigation.navigate('ConfirmationCode');
 },[success])
 useUpadateEffect(()=>{
 shOWError('SignUp Failed')

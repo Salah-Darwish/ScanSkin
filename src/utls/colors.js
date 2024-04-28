@@ -7,5 +7,6 @@ export const colors = {
     white:"#f9f4f0",
 textsin:"#A1B174",
 bacImg:"#f8ecde",
+backgr:"#fefdf5",
 error:"#f00"
 };

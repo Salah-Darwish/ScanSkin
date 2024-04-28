@@ -2,7 +2,11 @@ const ruleValidateMapper={
     isEmail:validateEmail, 
     isPassword: validatePassword, 
     Name:validateName, 
-    Phone:validatePhone
+    Phone:validatePhone, 
+    Experience:validateExper,
+    Price:validatePrice, 
+    Location:validateLocation, 
+    Time:ValidateTime, 
 }; 
 function validateEmail(enteredEmail){
   const emailRegular=/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/; 
@@ -22,7 +26,23 @@ function validatePhone(phone){
   }
   return /^(?:\+20)?(?:0)?(?:1[0-2]|2[0-9]|9[0-2]|1[5-9])(?:[0-9]{8})$/.test(phone);
 }
+function validateExper(expe){
+  const ExperRegular=/^\d{1,2}$/; 
+  return ExperRegular.test(expe)
+}
+function validatePrice(Price){
+const priceRegex = /^\d+(\.\d{1,2})?$/;
+return priceRegex.test(Price)
+}
+function validateLocation(Loca){
+const locationRegex = /^[A-Za-z\s]+$/;
+return locationRegex.test(Loca); 
 
+}
+function ValidateTime(Time){
+  const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d{1,3})?Z?$/;
+  return dateTimeRegex.test(Time)
+}
 
 
 export function validate(userInput,rules){
