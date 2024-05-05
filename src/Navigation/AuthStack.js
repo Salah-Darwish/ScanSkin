@@ -8,6 +8,9 @@ import Slider from '../screens/Onboarding/Slider';
 import Setrules from '../screens/SetRules';
 import RulesDoctor from '../screens/RulesDoctor';
 import RulesPatient from '../screens/RulesPatient';
+import ForgetPassword from '../screens/ForgetPassword';
+import ConfirmatioCodePassword from '../screens/ConfirmationCodePassword';
+import ResetPassword from '../screens/ResetPasswoed';
 import ConfirmationCode from '../screens/ConfirmationCode';
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +26,21 @@ export function AuthStack(props) {
  <Stack.Screen
         name="Login"
         component={Login}
+        options={{headerShown:false,}}
+      />
+       <Stack.Screen
+        name="ForgetPassword"
+        component={ForgetPassword}
+        options={{headerShown:false,}}
+      />
+        <Stack.Screen
+        name="ConfirmatioCodePassword"
+        component={ConfirmatioCodePassword}
+        options={{headerShown:false,}}
+      />
+         <Stack.Screen
+        name="ResetPassword"
+        component={ResetPassword}
         options={{headerShown:false,}}
       />
       <Stack.Screen

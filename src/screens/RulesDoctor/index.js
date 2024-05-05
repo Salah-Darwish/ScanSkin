@@ -13,18 +13,19 @@ import useInput from '../../utls/useInput'
 import { useUpadateEffect } from '../../utls/useUpdateEffect'
 import { useSelector,useDispatch } from 'react-redux'
 import { shOWError } from '../../utls/helperFunction'
-import { DoctorRules } from '../../redux/actions'
+import { Rules_Doctor } from '../../redux/actions'
 export default function RulesDoctor({navigation}) {
   const [Experience,ChangeExper]=useInput({initialInput:'',rules:[{Key:'Experience'}]});  
  const [Price,changePrice]=useInput({initialInput:'',rules:[{Key:'Price'}]}); 
  const [Location,ChangeLocation]=useInput({initialInput:'',rules:[{Key:'Location'}]}); 
  const [Addressdescription,changeAddressdescription]=useInput({initialInput:'',rules:[{Key:'Location'}]}); 
  const [Speciality,changeSpeciality]=useInput({initialInput:'',rules:[{Key:'Location'}]});
-const [StartTime,ChangeStartTime]=useInput({initialInput:'',rules:[{Key:'Time'}]});
-  const [EndTime,ChangeEndTime]=useInput({initialInput:'',rules:[{Key:'Time'}]});
+const [StartTime,ChangeStartTime]=useInput({initialInput:'',rules:[{Key:'TimeCom'}]});
+  const [EndTime,ChangeEndTime]=useInput({initialInput:'',rules:[{Key:'TimeCom'}]});
  const isLoading=useSelector(state=>state.auth.isRulesDoctor); 
  const success=useSelector(state=>state.auth.RulesDoctorSuccess)
  const failure=useSelector(state=>state.auth.RulesDoctorFailure)
+
  const dispatch=useDispatch(); 
  useUpadateEffect(()=>{
   navigation.navigate('Login')
@@ -33,6 +34,15 @@ const [StartTime,ChangeStartTime]=useInput({initialInput:'',rules:[{Key:'Time'}]
 shOWError('DoctorRules Failed')
 },[failure])
 const doneHandler = () => {
+  const formData=new FormData(); 
+ formData.append('Experience',Experience.value); 
+ formData.append('Price',Price.value); 
+ formData.append('AddressLocation',Location.value); 
+ formData.append('AddressDescription',Addressdescription.value); 
+ formData.append('Speciality',Speciality.value); 
+ formData.append('StartDay',StartTime.value); 
+ formData.append('EndDay',EndTime.value);
+ console.log(formData);
   if (
     Experience.isValid &&
     Price.isValid &&
@@ -43,20 +53,8 @@ const doneHandler = () => {
     EndTime.isValid
   ) {
     console.log("Exper: " + Experience.value + " Price " + Price.value);
-    dispatch(
-      DoctorRules(
-        Experience.value,
-        Price.value,
-        Location.value,
-        Addressdescription.value,
-        Speciality.value,
-        StartTime.value,
-        EndTime.value
-      )
-    );
-  } else {
-    // Handle validation errors or notify the user
-  }
+    dispatch(Rules_Doctor(formData));
+  } 
 };
  
   return (
@@ -99,10 +97,10 @@ const doneHandler = () => {
           justifyContent:'space-evenly'
               
             }}>
-            <Input placeholder={"Start"} color={colors.text} styleInput={styles.input} keyboard={"numeric"}
+            <Input placeholder={"Start"} color={colors.text} styleInput={styles.input} keyboard={"default"}
             value={ChangeStartTime}
             />
-            <Input placeholder={"End"} color={colors.text} styleInput={[styles.input,{marginLeft:scale(30)}]} keyboard={"numeric"} 
+            <Input placeholder={"End"} color={colors.text} styleInput={[styles.input,{marginLeft:scale(30)}]} keyboard={"default"} 
             value={ChangeEndTime}
             />
            </View>

@@ -15,9 +15,13 @@ RulesFailure:null,
 isConfirmCode:false, 
 ConfirmSuccess:null, 
 ConfirmFailure:null, 
+isResendCode:false,   
+ResendCodeSuccess:null, 
+ResendCodeFailure:null, 
 isRulesDoctor:false, 
-RulesDoctorSuccess:null, 
-RulesDoctorFailure:null, 
+RulesDoctorSuccess:null,   
+RulesDoctorFailure:null,   
+
 
 };
 function authReducer(state=initialState,action){
@@ -87,7 +91,7 @@ return{
  Rules:false, 
 RulesFailure:{}
             }; 
-              case actionTypes.CONFIRM_START:
+  case actionTypes.CONFIRM_START:
     return{
 ...state, 
 isConfirmCode:true
@@ -105,7 +109,28 @@ return{
  isConfirmCode:false, 
 ConfirmFailure:{}
             };
-                case actionTypes.RULESDOCTOR_START:
+
+                 case actionTypes.RESWNDCODE_START:
+    return{
+...state, 
+isResendCode:true
+
+    };
+    case actionTypes.RESENDCODE_SUCCESS:
+        return{
+...state,
+isResendCode:false,
+ResendCodeSuccess:{}
+        };
+case actionTypes.RESENDCODE_FAILURE:
+return{
+ ...state,
+ isResendCode:false, 
+ResendCodeFailure:{}
+            };
+       
+
+            case actionTypes.RULESDOCTOR_START:
     return{
 ...state, 
 isRulesDoctor:true
@@ -123,6 +148,8 @@ return{
  isRulesDoctor:false, 
 RulesDoctorFailure:{}
             };
+
+
 default:
     return state;
     

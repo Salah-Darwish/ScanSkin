@@ -18,7 +18,7 @@ import {
 import CustomButton from '../../component/CustomButton'
 import { useUpadateEffect } from '../../utls/useUpdateEffect'
 import { shOWError } from '../../utls/helperFunction'
-export default function ConfirmationCode({navigation}) {
+export default function ConfirmatioCodePassword({navigation}) {
   const [value, setValue] =React.useState('');
   const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
   const [Time,setTime]=useState(60 * 4 + 1)
@@ -28,37 +28,8 @@ export default function ConfirmationCode({navigation}) {
     setValue,
   });
   const CELL_COUNT = 6;
-  const isLoading=useSelector(state=>state.auth.isConfirmCode); 
- const success=useSelector(state=>state.auth.ConfirmSuccess)
- const failure=useSelector(state=>state.auth.ConfirmFailure)
-  const isLoadingResend=useSelector(state=>state.auth.isResendCode);  
-const dispatch=useDispatch(); 
-// Inside your ConfirmationCode component
-useUpadateEffect(() => {
-  navigation.navigate('Setrules');
-}, [success]);
-useEffect(() => {
-    let interval;
-    if (isResending) {
-      interval = setInterval(() => {
-        setTime((prevTime) => (prevTime > 0 ? prevTime - 1 : 0));
-      }, 1000);
-    } else {
-      clearInterval(interval);
-    }
-
-    return () => clearInterval(interval);
-  }, [isResending]);
-useUpadateEffect(()=>{
-shOWError('Confirmation Code Failed')
-},[failure])
-const doneHandler=()=>{
-dispatch(ConfirmCode(value))
-}
-const resendHandler=()=>{
-  setTime(60 * 4 + 1); 
-        dispatch(ResendCode())
-   setIsResending(true)
+const dohandler=()=>{
+  navigation.navigate('ResetPassword');
 }
   return (
         <KeyboardAwareScrollView
@@ -118,14 +89,12 @@ const resendHandler=()=>{
       styleButton={[styles.Button,{marginTop:verticalScale(40),width:scale(130), 
     marginLeft:scale(30)
       }]}
-      isLoading={isLoadingResend}
-      OnPress={resendHandler}
+  
         />
         </View>
       <CustomButton  text="Verfiy" styletext={styles.text} 
       styleButton={styles.Button}
-      isLoading={isLoading}
-      OnPress={doneHandler}
+      OnPress={dohandler}
         />
     
     </View>

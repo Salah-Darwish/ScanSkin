@@ -7,6 +7,7 @@ const ruleValidateMapper={
     Price:validatePrice, 
     Location:validateLocation, 
     Time:ValidateTime, 
+    TimeCom:ValidateTimeCom
 }; 
 function validateEmail(enteredEmail){
   const emailRegular=/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/; 
@@ -44,6 +45,10 @@ function ValidateTime(Time){
   return dateTimeRegex.test(Time)
 }
 
+function ValidateTimeCom(TimeCom){
+  const regex = /\d{2}-\d{2}-\d{4}/;
+  return regex.test(TimeCom)
+}
 
 export function validate(userInput,rules){
     let isValid=true; 

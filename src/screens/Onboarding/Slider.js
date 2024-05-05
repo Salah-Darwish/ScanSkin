@@ -3,9 +3,11 @@ import React, {useRef, useState,} from 'react';
 import Slides from '../../data';
 import SlideItem from './SlideItem';
 import Pagination from './Pagination';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { colors } from '../../utls/colors';
 const Slider = ({navigation}) => {
   const [index, setIndex] = useState(0);
+
   const scrollX = useRef(new Animated.Value(0)).current;
 const slidesRef=useRef(null)
   const handleOnScroll = event => {
@@ -49,7 +51,7 @@ const scrollTo = () => {
           <Button title='Skip' color={colors.text}
 onPress={
   ()=>{
-    navigation.navigate("Login")
+    navigation.replace("Login")
       }}
 />
       <FlatList
