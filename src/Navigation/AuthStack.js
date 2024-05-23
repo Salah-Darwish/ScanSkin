@@ -1,17 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import SignUp from '../screens/SignUp';
-import Login from '../screens/Login';
-import SplachScreen from '../screens/Splach';
-import SlideItem from '../screens/Onboarding/SlideItem';
-import Slider from '../screens/Onboarding/Slider';
-import Setrules from '../screens/SetRules';
-import RulesDoctor from '../screens/RulesDoctor';
-import RulesPatient from '../screens/RulesPatient';
-import ForgetPassword from '../screens/ForgetPassword';
-import ConfirmatioCodePassword from '../screens/ConfirmationCodePassword';
-import ResetPassword from '../screens/ResetPasswoed';
-import ConfirmationCode from '../screens/ConfirmationCode';
+import SignUp from '../screens/AccountModule/SignUp';
+import Login from '../screens/AccountModule/Login';
+import SplachScreen from '../screens/AccountModule/Splach';
+import Slider from '../screens/AccountModule/Onboarding/Slider';
+import SetRulesAccount from '../screens/AccountModule/SetRules';
+import RulesDoctor from '../screens/AccountModule/RulesDoctor';
+import RulesPatient from '../screens/AccountModule/RulesPatient';
+import ForgetPassword from '../screens/AccountModule/ForgetPassword';
+import ConfirmatioCodePassword from '../screens/AccountModule/ConfirmationCodePassword';
+import ResetPassword from '../screens/AccountModule/ResetPasswoed';
+import ConfirmationCode from '../screens/AccountModule/ConfirmationCode';
 const Stack = createNativeStackNavigator();
 
 export function AuthStack(props) {
@@ -53,8 +52,8 @@ export function AuthStack(props) {
       options={{headerShown:false}}
       />
       <Stack.Screen 
-      name='Setrules'
-      component={Setrules}
+      name='SetRulesAccount'
+      component={SetRulesAccount}
       options={{headerShown:false}}
       />
      <Stack.Screen
@@ -67,6 +66,7 @@ export function AuthStack(props) {
      component={RulesPatient}
      options={{headerShown:false}}
      />
+     
     </Stack.Navigator>
   );
 }

@@ -2,12 +2,17 @@ const ruleValidateMapper={
     isEmail:validateEmail, 
     isPassword: validatePassword, 
     Name:validateName, 
-    Phone:validatePhone, 
+    // Phone:validatePhone, 
     Experience:validateExper,
     Price:validatePrice, 
     Location:validateLocation, 
     Time:ValidateTime, 
-    TimeCom:ValidateTimeCom
+    TimeCom:ValidateTimeCom, 
+    Age:ValidateAge,
+    Height:ValidateHeight, 
+    Weight:ValidateWeight,
+    Gender:validateGender, 
+    Blood:ValidateBlood
 }; 
 function validateEmail(enteredEmail){
   const emailRegular=/^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/; 
@@ -21,12 +26,12 @@ function validateName(name){
     const nameRegular=/^[a-zA-Z\s'-]+$/; 
     return nameRegular.test(name)
 }
-function validatePhone(phone){
-  if (phone.length !== 11) {
-    return false;
-  }
-  return /^(?:\+20)?(?:0)?(?:1[0-2]|2[0-9]|9[0-2]|1[5-9])(?:[0-9]{8})$/.test(phone);
-}
+// function validatePhone(phone){
+//   if (phone.length !== 11) {
+//     return false;
+//   }
+//   return /^(?:\+20)?(?:0)?(?:1[0-2]|2[0-9]|9[0-2]|1[5-9])(?:[0-9]{8})$/.test(phone);
+// }
 function validateExper(expe){
   const ExperRegular=/^\d{1,2}$/; 
   return ExperRegular.test(expe)
@@ -48,6 +53,27 @@ function ValidateTime(Time){
 function ValidateTimeCom(TimeCom){
   const regex = /\d{2}-\d{2}-\d{4}/;
   return regex.test(TimeCom)
+}
+function ValidateAge(Age){
+const ageRegex = /^(?:1[0-1][0-9]|[1-9][0-9]|[1-9])$/;
+return ageRegex.test(Age)
+}
+function ValidateHeight(Height){
+  const heightRegex = /^(?:(?:[4-7])'\d{1,2})$/;
+heightRegex.test(Height); 
+}
+function ValidateWeight(Weight){
+  const weightPattern = /^(1\d\d|[2-9]\d|\d\d?)\s?kg$/;
+weightPattern.test( Weight)
+}
+
+function validateGender(Gender){
+  const genderRegex = /^(Male|Female)$/i;
+  genderRegex.test(Gender)
+}
+function ValidateBlood(Blood){
+const bloodRegex = /^(A+|A-|B+|B-|O+|O-|AB+|AB-)$/i;
+bloodRegex.test(Blood)
 }
 
 export function validate(userInput,rules){

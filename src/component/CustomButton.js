@@ -12,10 +12,11 @@ export default function CustomButton(props) {
     isLoading,
     isImage, 
     src, 
-StyleImage
+StyleImage, 
+dis
   } =props; 
   return (
-   <TouchableOpacity onPress={OnPress} style={styleButton}>
+   <TouchableOpacity onPress={OnPress} style={styleButton} disabled={dis}>
     {isLoading? <ActivityIndicator/> : 
     <Customtext text={text} styleText={styletext}/>
 }

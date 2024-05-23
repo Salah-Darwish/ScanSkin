@@ -24,8 +24,16 @@ const LoginStart = () => ({ type: actionTypes.LOGIN_START });
 const LoginSuccess = () => ({ type: actionTypes.LOGIN_SUCCESS});
 const LoginFailure = (error) => ({ type: actionTypes.LOGIN_FAILURE, payload: { error } });
 
+const ForgetPasswordStart=()=>({type:actionTypes.FORGETPASSWORD_START}); 
+const ForgetPasswordSuccess=()=>({type:actionTypes.FORGETPASSWORD_SUCCESS}); 
+const ForgetPasswordFailure=()=>({type:actionTypes.FORGETPASSWORD_FAILURE,payload:{error}});
+
+const ResetPasswordStart=()=>({type:actionTypes.RESETPASSWORD_START}); 
+const ResetPasswordSuccess=()=>({type:actionTypes.RESETPASSWORD_SUCCESS}); 
+const ResetPasswordFailure=()=>({type:actionTypes.RESETPASSWORD_FAILURE,payload:{error}});
+
 const RulesStart = () => ({ type: actionTypes.RULES_START });
-const RulesSuccess = () => ({ type: actionTypes.RULES_SUCCESS});
+const RulesSuccess = (data) => ({ type: actionTypes.RULES_SUCCESS, payload:data});
 const RulesFailure = (error) => ({ type: actionTypes.RULES_FAILURE, payload: { error } });
 
 const ConfirmStart = () => ({ type: actionTypes.CONFIRM_START });
@@ -36,9 +44,16 @@ const RulesDoctorStart=()=>({type:actionTypes.RULESDOCTOR_START});
 const RulesDoctorSuccess=()=>({type:actionTypes.RULESDOCTOR_SUCCESS}); 
 const RulesDoctorFailure=()=>({type:actionTypes.RULESDOCTOR_FAILURE,payload:{error}}); 
 
+
+const RulesPatientStart=()=>({type:actionTypes.RULESPATIENT_START}); 
+const RulesPatientSuccess=()=>({type:actionTypes.RULESPATIENT_SUCCESS}); 
+const RulesPatientFailure=()=>({type:actionTypes.RULESPATIENT_FAILURE,payload:{error}}); 
+
+
 const ResndCodeStart=()=>({type:actionTypes.RESWNDCODE_START});
 const ResndCodeSuccess=()=>({type:actionTypes.RESENDCODE_SUCCESS});
 const ResendCodeFailure=()=>({type:actionTypes.RESENDCODE_FAILURE});
+
 
 
 export const signUp = (displayName, email, phoneNumber, password, confirmPassword) => {
@@ -101,7 +116,10 @@ export const SetRules=(role)=>{
     dispatch(setToken2(val));
       axios.defaults.headers.Authorization='Bearer '+val});
       console.log('Rules Successful:',res.data);
-    dispatch(RulesSuccess());
+    dispatch(RulesSuccess(res.data));
+    const {role}=res.data; 
+    dispatch(setUser(role))
+    AsyncStorage.setItem(User_Key,role)
     }
     else{
        dispatch(  RulesFailure('Rules failed: Invalid response status'));
@@ -114,6 +132,56 @@ export const SetRules=(role)=>{
   }
 
 }
+
+export const Forgetpassword=(email)=>{
+return(dispatch,getState)=>{
+  dispatch(ForgetPasswordStart()); 
+  axios.post('/Account/forgotPassword',{email})
+  .then(res=>{
+    if(res.status===200){
+       AsyncStorage.getItem(Token_Key2).then(val=>{
+    dispatch(setToken2(val));
+      axios.defaults.headers.Authorization='Bearer '+val});
+      console.log('Forget Password Successful: ',res.data);
+dispatch(ForgetPasswordSuccess()); 
+    }
+    else{
+      dispatch(ForgetPasswordFailure('Forget Password Failed :Invalid response status ')); 
+    }
+  })
+  .catch(err=>{
+    dispatch(ForgetPasswordFailure(err.message || 'Forget password failed')); 
+    console.error('Forget password failed : ',err);
+  }); 
+}
+}
+
+
+export const Resetpassword=(newPassword,confirmPassword)=>{
+return(dispatch,getState)=>{
+  dispatch(ResetPasswordStart()); 
+  axios.post('/Account/resetPassword',{newPassword,confirmPassword})
+  .then(res=>{
+    if(res.status===200){
+       AsyncStorage.getItem(Token_Key2).then(val=>{
+    dispatch(setToken2(val));
+      axios.defaults.headers.Authorization='Bearer '+val});
+      console.log('Reset Password Successful: ',res.data);
+dispatch(ResetPasswordSuccess()); 
+    }
+    else{
+      dispatch(ResetPasswordFailure('Reset Password Failed :Invalid response status ')); 
+    }
+  })
+  .catch(err=>{
+    dispatch(ResetPasswordFailure(err.message || 'Reset assword failed')); 
+    console.error('Reset password failed : ',err);
+  }); 
+}
+}
+
+
+
 export const ConfirmCode=(confirmationCode)=>{
 return (dispatch,getState)=>{
   dispatch(ConfirmStart()); 
@@ -161,7 +229,6 @@ export const ResendCode=()=>{
 export const Rules_Doctor=(formData)=>{
   return(dispatch,getState)=>{
     dispatch(RulesDoctorStart()); 
-  
     axios.post('/SetDataForDoctorAndUser/SetData/Doctor',formData,{
      headers:{
         'Content-Type': 'multipart/form-data',
@@ -185,6 +252,36 @@ else{
 
       }
 }
+
+export const Rules_Patient = (formData) => {
+  return (dispatch, getState) => {
+    dispatch(RulesPatientStart());
+
+    // Make the axios POST request with multipart/form-data
+    axios.post('/SetDataForDoctorAndUser/SetData', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    })
+    .then(res => {
+      if (res.status === 200) {
+        AsyncStorage.getItem(Token_Key2).then(val => {
+          dispatch(setToken2(val));
+          axios.defaults.headers.Authorization = 'Bearer ' + val;
+        });
+
+        console.log('RulesPatient Successful:', res.data);
+        dispatch(RulesPatientSuccess());
+      } else {
+        dispatch(RulesPatientFailure('RulesPatient Failed : Invalid response status'));
+      }
+    })
+    .catch(err => {
+      dispatch(RulesPatientFailure(err.message || 'RulesPatient Failed'));
+      console.error('RulesPatient error:', err);
+    });
+  };
+};
 
 
 

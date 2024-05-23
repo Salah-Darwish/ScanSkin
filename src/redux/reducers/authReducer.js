@@ -2,13 +2,19 @@
 import * as actionTypes from '../actions/actionTypes'
 const initialState={
     token:'', 
-    user:null,
+    user:'',
     isSigningUp:false,
 SignUpSuccess:null, 
 SignUpFailure:null, 
   isLogin:false,
 LoginSuccess:null, 
 LoginFailure:null,
+isForgetpassword:false, 
+ForgetpasswordSuccess:null, 
+ForgetpasswordFailure:null, 
+isResetpassword:false, 
+ResetpasswordSuccess:null, 
+ResetpasswordFailure:null, 
 Rules:false, 
 RulesSuccess:null, 
 RulesFailure:null, 
@@ -21,7 +27,9 @@ ResendCodeFailure:null,
 isRulesDoctor:false, 
 RulesDoctorSuccess:null,   
 RulesDoctorFailure:null,   
-
+isRulesPatient:false, 
+RulesPatientSuccess:null,   
+RulesPatientFailure:null,  
 
 };
 function authReducer(state=initialState,action){
@@ -34,8 +42,7 @@ token:action.payload.token
 case actionTypes.SET_USER:
 return {
 ...state,
-token:action.payload.user
-
+user:action.payload.user
 };
 case actionTypes.SIGNUP_START:
     return{
@@ -73,6 +80,42 @@ LoginSuccess:{}
                 isLogin:false, 
                 LoginFailure:{}
             };
+            case actionTypes.FORGETPASSWORD_START:
+return{
+...state, 
+isForgetpassword:true
+
+    };
+    case actionTypes.FORGETPASSWORD_SUCCESS:
+return{
+...state,
+isForgetpassword:false,
+ForgetpasswordSuccess:{}
+        };
+        case actionTypes.FORGETPASSWORD_FAILURE:
+            return{
+                ...state,
+                isForgetpassword:false, 
+                ForgetpasswordFailure:{}
+            };
+              case actionTypes.RESETPASSWORD_START:
+return{
+...state, 
+isResetpassword:true
+
+    };
+    case actionTypes.RESETPASSWORD_SUCCESS:
+return{
+...state,
+isResetpassword:false,
+ResetpasswordSuccess:{}
+        };
+        case actionTypes.RESETPASSWORD_FAILURE:
+            return{
+                ...state,
+                isResetpassword:false, 
+                ResetpasswordFailure:{}
+            };
             case actionTypes.RULES_START:
     return{
 ...state, 
@@ -83,7 +126,7 @@ Rules:true
         return{
 ...state,
 Rules:false,
-RulesSuccess:{}
+RulesSuccess:action.payload
         };
 case actionTypes.RULES_FAILURE:
 return{
@@ -130,7 +173,7 @@ ResendCodeFailure:{}
             };
        
 
-            case actionTypes.RULESDOCTOR_START:
+  case actionTypes.RULESDOCTOR_START:
     return{
 ...state, 
 isRulesDoctor:true
@@ -149,6 +192,24 @@ return{
 RulesDoctorFailure:{}
             };
 
+  case actionTypes.RULESPATIENT_START:
+    return{
+...state, 
+isRulesPatient:true
+
+    };
+    case actionTypes.RULESPATIENT_SUCCESS:
+        return{
+...state,
+isRulesPatient:false,
+RulesPatientSuccess:{}
+        };
+case actionTypes.RULESPATIENT_FAILURE:
+return{
+ ...state,
+ isRulesPatient:false, 
+RulesPatientFailure:{}
+            };
 
 default:
     return state;

@@ -1,5 +1,4 @@
 export const colors = {
-
     text: '#AC835E',
     Actdot: '#684428',
     notAct:"#957B65",
