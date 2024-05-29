@@ -93,6 +93,9 @@ export const LoginIn = (email, password, rememberMe) => {
           dispatch(setToken(token));
       //    dispatch(setUser(userData));
           AsyncStorage.setItem(Token_Key, token);
+            const {role}=res.data; 
+    dispatch(setUser(role))
+    AsyncStorage.setItem(User_Key,role)
          // AsyncStorage.setItem(User_Key, JSON.stringify(userData));
           dispatch(LoginSuccess());
         } else {
@@ -117,9 +120,7 @@ export const SetRules=(role)=>{
       axios.defaults.headers.Authorization='Bearer '+val});
       console.log('Rules Successful:',res.data);
     dispatch(RulesSuccess(res.data));
-    const {role}=res.data; 
-    dispatch(setUser(role))
-    AsyncStorage.setItem(User_Key,role)
+  
     }
     else{
        dispatch(  RulesFailure('Rules failed: Invalid response status'));
