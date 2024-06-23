@@ -94,7 +94,7 @@ export default function ProfileDoctors() {
    </View>
   </ScrollView>
     
-     <View style={{marginTop:'30%'}}></View>
+   
       </ScrollView>
 )}
 const styles = StyleSheet.create({

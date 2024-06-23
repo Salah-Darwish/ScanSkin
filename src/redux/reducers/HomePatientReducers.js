@@ -4,6 +4,9 @@ const initialState = {
     isAllDoctorsData: false,
     DoctorsDataSuccess: [],
     DoctorsDataFailure: null,
+    isScanSkin:false,
+    ScanSuccess:null,
+    ScanFailure:null,
 };
 
 function homePatientReducer(state = initialState, action) {
@@ -25,6 +28,23 @@ function homePatientReducer(state = initialState, action) {
                 isAllDoctorsData: false,
                 DoctorsDataFailure: true,
             };
+        case actionTypes.SCAN_START:
+            return {
+                ...state,
+                isScanSkin:true,
+            };  
+            case actionTypes.SCAN_START_SUCCESS :
+                return {
+                    ...state,
+                    isScanSkin:false,
+                    ScanSuccess:{},
+                };
+                case actionTypes.SCAN_START_FAILURE :
+                    return {
+                        ...state,
+                        isScanSkin:false,
+                        ScanFailure:{},
+                    };
         default:
             return state;
     }

@@ -34,4 +34,7 @@ export const AllDoctorsData_START ='AllDoctorsData_START'
 export const AllDoctorsData_SUCCESS='AllDoctorsData_SUCCESS'
 export const AllDoctorsData_FAILURE='AllDoctorsData_FAILURE'
 
+export const SCAN_START='SCAN_START'
+export const SCAN_START_SUCCESS='SCAN_START_SUCCESS'
+export const SCAN_START_FAILURE='SCAN_START_FAILURE'
 

@@ -15,7 +15,7 @@ export default function DiscoverDiseases() {
            </View>
            <Image source={require('../../../assets/Heartbroken.png')} resizeMode='cover' style={{width:'80%',height:scale(230),alignSelf:'center',marginTop:scale(30)}}/>
       <View style={styles.text}>
-      <Text style={{fontSize:scale(17),color:'#8D5524E2',letterSpacing:1,fontWeight:'bold'}}>We identified a skin cancer spot, we encourage you to schedule an appointment with dermatologist.</Text>
+      <Text style={{fontSize:scale(17),color:'#8D5524E2',letterSpacing:1,fontWeight:'bold'}}>We identified you have Akne disease, we encourage you to schedule an appointment with dermatologist.</Text>
       </View>
       <View style={{marginTop:scale(50)}}>
       <TouchableOpacity style={styles.button}>

@@ -26,7 +26,9 @@ export const HomeTabs = () => {
           borderTopWidth: 0,
           position: "absolute",
           elevation: 0,
-         width:scale(500)
+         width:scale(525),
+        justifyContent:'space-between',
+
         },
       }}
     >
@@ -120,7 +122,7 @@ export const HomeTabs = () => {
                 height: verticalScale(20),
                 marginRight:scale(70)
               }}
-              source={require('../assets/calendar.png')
+              source={require('../assets/calendar(1).png')
               }
             />
           ),
@@ -129,7 +131,7 @@ export const HomeTabs = () => {
               color:colors.white, 
               fontSize:scale(9), 
               fontWeight:"bold",
-              marginRight:scale(70), 
+              marginRight:scale(68), 
               marginBottom:verticalScale(2)
             }}>Appointment</Text>
           ),
